@@ -37,3 +37,15 @@ BUSCOJOBS= {
     "WS_AREA" : None,  # FILTRO DE AREA PARA REALIZAR LA BUSQUEDA (None: Sin filtro)
     "NAME_TEAM": 'JJERK'
 }
+
+#SITIO-FREELANCER
+FREELANCER = {
+    "WS_PORTAL_LABORAL" : "freelancer",
+    #"WS_PORTAL_LABORAL_URL" : "https://www.freelancer.com.pe/jobs",
+    "WS_PORTAL_LABORAL_URL" : "https://www.freelancer.com.pe",
+    "WS_PAGINAS" : 2,  # (50) CANTIDAD DE PAGINAS A SCRAPEAR
+    "WS_PAGINA_INICIAL" : 1,  # NUMERO DE PAGINA DESDE DONDE SE EMPEZARA A SCRAPEAR
+    "WS_OFERTAS" : None,  # CANTIDAD DE OFERTAS POR PAGINA A SCRAPEAR (None: Sin limite)
+    "WS_AREA" : None,  # FILTRO DE AREA PARA REALIZAR LA BUSQUEDA (None: Sin filtro)
+    "NAME_TEAM": 'RODKA'
+}

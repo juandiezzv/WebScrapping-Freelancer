@@ -5,6 +5,8 @@ from configuration import *
 import webscraping_computrabajo
 import webscraping_indeed
 import webscraping_buscojobs
+import webscraping_freelancer
+import random
 from controller import Controller
 from dbconnection import Connection
 
@@ -62,6 +64,17 @@ def set_url_busqueda_buscojobs(carga):
     #carga["url_prefix"] = carga["url_principal"] + urlbusqueda + paginado
     carga["url_sufix"] = ""
     #carga["url_busqueda"] = carga["url_principal"] + urlbusqueda    
+
+def set_url_busqueda_freelancer(carga):
+    #MODIFICADO URL FREELANCER
+    #https://www.freelancer.com.pe/jobs/2/?keyword=dise%C3%B1o%20web
+    carga["url_principal"] = FREELANCER["WS_PORTAL_LABORAL_URL"]
+    #urlbusqueda = "/?keyword=diseño%20web"
+    #paginado = ""
+    carga["paginado"] = "/"
+    #carga["url_prefix"] = carga["url_principal"] + paginado + urlbusqueda 
+    carga["url_sufix"] = ""
+    #carga["url_busqueda"] = carga["url_principal"] + urlbusqueda
 
 def connect_bd():
     con = Connection(DATABASE["DB_HOST"], DATABASE["DB_SERVICE"], DATABASE["DB_USER"], DATABASE["DB_PASSWORD"])
@@ -131,7 +144,40 @@ def delati_buscojobs():
     #print(listaOferta)
 
 
+
+def delati_freelancer():
+    controller = Controller()
+    con = connect_bd()
+    carga = {}
+    carga["pagina"] = FREELANCER["WS_PORTAL_LABORAL"]
+    carga["cant_paginas"] = FREELANCER["WS_PAGINAS"]
+    carga["pagina_inicial"] = FREELANCER["WS_PAGINA_INICIAL"]
+    carga["cant_ofertas"] = FREELANCER["WS_OFERTAS"]
+    carga["busqueda_area"] = FREELANCER["WS_AREA"]
+    carga["delati_team"] = FREELANCER["NAME_TEAM"]
+    carga["busqueda"] = ""
+    set_url_busqueda_freelancer(carga)
+    #carga["id_carga"] = controller.registrar_webscraping(con, carga)
+
+    for type_search in webscraping_freelancer.obtener_lista_keywords(con):
+        carga["url_prefix"] = carga["url_principal"] + '/jobs' + carga["paginado"]
+        carga["url_sufix"] =  type_search['descripcion']
+        #carga["url_prefix"] = carga["url_principal"] + type_search['descripcion'] + carga["paginado"]
+        carga["url_busqueda"] = carga["url_principal"] + '/jobs'  + type_search['descripcion']
+
+        carga["id_keyword"] = type_search['id']
+        #carga["id_carga"] = controller.registrar_webscraping(con, carga)
+        carga["id_carga"]= random.randrange(10000)
+        
+        print(carga)
+        listaOferta = webscraping_freelancer.scraping_ofertas(con, carga["url_principal"], carga["url_prefix"], carga["url_sufix"],
+                                               carga["pagina_inicial"], carga["cant_paginas"], carga["cant_ofertas"]
+                                               ,carga["id_carga"])
+
+
 if __name__ == "__main__":
     #delati_compuTrabajo()
     #delati_indeed()
-    delati_buscojobs()
+    #delati_buscojobs()
+    print("prueba")
+    delati_freelancer()
