@@ -166,9 +166,17 @@ def delati_freelancer():
         carga["url_busqueda"] = carga["url_principal"] + '/jobs'  + type_search['descripcion']
 
         carga["id_keyword"] = type_search['id']
-        #carga["id_carga"] = controller.registrar_webscraping(con, carga)
-        carga["id_carga"]= random.randrange(10000)
-        
+        carga["id_carga"] = controller.registrar_webscraping(con, carga)
+        #carga["id_carga"]= random.randrange(10000)
+        print(carga["busqueda"])
+        print(carga["busqueda_area"])
+        print(carga["pagina"])
+        print(carga["url_principal"])
+        print(carga["url_busqueda"])
+        print(carga["id_keyword"])
+        print(carga["delati_team"])
+        print(carga["id_carga"])
+
         print(carga)
         listaOferta = webscraping_freelancer.scraping_ofertas(con, carga["url_principal"], carga["url_prefix"], carga["url_sufix"],
                                                carga["pagina_inicial"], carga["cant_paginas"], carga["cant_ofertas"]
@@ -179,5 +187,4 @@ if __name__ == "__main__":
     #delati_compuTrabajo()
     #delati_indeed()
     #delati_buscojobs()
-    print("prueba")
     delati_freelancer()

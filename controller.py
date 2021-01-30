@@ -51,3 +51,6 @@ class Controller:
 
     def evitar_redundancia(self, con, oferta):
         return self.dboferta.evitar_redundancia(con, oferta)
+
+    def evitar_redundancia_por_id_anuncio(self, con, oferta):
+        return self.dboferta.evitar_redundancia_por_id_anuncio(con, oferta)
