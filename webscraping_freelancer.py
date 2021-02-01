@@ -226,7 +226,7 @@ def scraping_ofertadetalle(url_pagina, row_id, con):
             oferta_limpia = str(oferta.text.strip())  
             detalle["descripcion"]= oferta_limpia
             print("DETALLE_OFERTA_DETALLE:"+detalle["descripcion"])
-            if(detalle["descripcion"] == " " or detalle["descripcion"] == "" or len(detalle["descripcion"])==0):
+            if(detalle["descripcion"] == " " or detalle["descripcion"] == "" or len(detalle["descripcion"])==0 or detalle["descripcion"].count("La dirección de email  ya está asociada con una cuenta de Freelancer") != 0 or detalle["descripcion"].count("Enlaza tu cuenta a una nueva cuenta de Freelancer") != 0  or detalle["descripcion"].count("Enlaza tu cuenta de Freelancer existente") != 0):
                 print("VACIO")
             else:
                 controller.registrar_oferta_detalle(con, detalle)
